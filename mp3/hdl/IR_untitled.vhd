@@ -15,28 +15,22 @@ LIBRARY ece411;
 USE ece411.LC3b_types.all;
 
 ENTITY IR IS
-	PORT( 
-		LoadIR			: IN     std_logic;
-		MDRout    		: IN     LC3b_word;
-		clk       		: IN     std_logic;
-		Opcode    		: OUT    LC3b_opcode;
-		SrcA      		: OUT    LC3b_reg;
-		SrcB      		: OUT    LC3b_reg;
-		shftop    		: OUT    LC3b_shftop;
-		dest      		: OUT    LC3b_reg;
-      
-		-- Individual Bits
-		IR5			: OUT		std_logic;
-		IR11			: OUT		std_logic;
-      
-		-- Things that we are going to SEXT or ADJ
-		IMM5			: OUT LC3B_IMM5;
-		INDEX6			: OUT	LC3B_INDEX6;
-		TRAPVECT8			: OUT LC3B_TRAPVECT8;
-		OFFSET9			: OUT LC3B_OFFSET9;
-		OFFSET11			: OUT LC3B_OFFSET11
-      
-      
+   PORT( 
+      LoadIR    : IN     std_logic;
+      MDRout    : IN     LC3b_word;
+      clk       : IN     std_logic;
+      IMM5      : OUT    LC3B_IMM5;
+      INDEX6    : OUT    LC3B_INDEX6;
+      TRAPVECT8 : OUT    LC3B_TRAPVECT8;
+      OFFSET9   : OUT    LC3B_OFFSET9;
+      OFFSET11  : OUT    LC3B_OFFSET11;
+      IF_Opcode : OUT    LC3b_opcode;
+      IF_SrcA   : OUT    LC3b_reg;
+      IF_SrcB   : OUT    LC3b_reg;
+      IF_dest   : OUT    LC3b_reg;
+      IF_shftop : OUT    LC3b_shftop;
+      IF_IR5    : OUT    std_logic;
+      IF_IR11   : OUT    std_logic
    );
 
 -- Declarations
@@ -58,14 +52,14 @@ BEGIN
 		END IF;
 	END PROCESS VHDL_REG_IR;
 	
-	OPCODE			<= VAL_IR(15 DOWNTO 12);
-	SRCA 			<= VAL_IR(8  DOWNTO 6);
-	SRCB 			<= VAL_IR(2  DOWNTO 0);
-	DEST 			<= VAL_IR(11 DOWNTO 9);
-	SHFTOP			<= VAL_IR(5  DOWNTO 4);
+	IF_OPCODE			<= VAL_IR(15 DOWNTO 12);
+	IF_SRCA 			<= VAL_IR(8  DOWNTO 6);
+	IF_SRCB 			<= VAL_IR(2  DOWNTO 0);
+	IF_DEST 			<= VAL_IR(11 DOWNTO 9);
+	IF_SHFTOP			<= VAL_IR(5  DOWNTO 4);
 	
-	IR5			<= VAL_IR(5);
-	IR11			<= VAL_IR(11);
+	IF_IR5			<= VAL_IR(5);
+	IF_IR11			<= VAL_IR(11);
 	
 	IMM5			<= VAL_IR(4  DOWNTO 0);
 	INDEX6			<= VAL_IR(5  DOWNTO 0);
